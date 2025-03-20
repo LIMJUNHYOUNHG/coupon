@@ -17,7 +17,9 @@ public class DataSourceConfig {
     }
 
     @Bean
-    public HikariDataSource dataSource(@Qualifier("hikariConfig") HikariConfig hikariConfig) {
+    public HikariDataSource dataSource(
+            @Qualifier("hikariConfig") HikariConfig hikariConfig
+    ) {
         return new HikariDataSource(hikariConfig);
     }
 
