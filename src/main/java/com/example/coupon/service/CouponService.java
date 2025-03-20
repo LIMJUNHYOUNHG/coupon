@@ -23,6 +23,7 @@ public class CouponService {
         return updatedCount > 0;
     }
 
+
     @Transactional
     public void create(CouponCreate couponCreate) {
         Coupon coupon = Coupon.builder()
