@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class DataSourceConfig {
+
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource.hikari")
     public HikariConfig hikariConfig() {
@@ -19,4 +20,5 @@ public class DataSourceConfig {
     public HikariDataSource dataSource(@Qualifier("hikariConfig") HikariConfig hikariConfig) {
         return new HikariDataSource(hikariConfig);
     }
+
 }
