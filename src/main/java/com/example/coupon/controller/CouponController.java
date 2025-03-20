@@ -17,8 +17,6 @@ import java.util.concurrent.ConcurrentHashMap;
 @RequiredArgsConstructor
 public class CouponController {
 
-    private final ConcurrentHashMap<String, Result> results = new ConcurrentHashMap<>();
-
     private final CouponService couponService;
 
     @PostMapping("/{couponId}/redeem")
