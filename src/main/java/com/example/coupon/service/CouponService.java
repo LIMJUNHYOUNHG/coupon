@@ -10,8 +10,6 @@ import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.SQLTransientConnectionException;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -24,8 +22,6 @@ public class CouponService {
         int updatedCount = couponRepository.decrementCouponCount(couponId);
         return updatedCount > 0;
     }
-
-
 
     @Transactional
     public void create(CouponCreate couponCreate) {
