@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/coupons")
 @RequiredArgsConstructor
 public class CouponController {
-
     private final CouponService couponService;
 
     @PostMapping("/{couponId}/redeem")
