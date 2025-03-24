@@ -18,15 +18,18 @@ public class CouponController {
     public ResponseEntity<String> redeemCoupon(@PathVariable Long couponId) {
         boolean success = couponService.redeemCoupon(couponId);
         if (success) {
-            return ResponseEntity.ok("쿠폰 사용 성공");
+            String responseMessage = "쿠폰 사용 성공";
+            return ResponseEntity.ok(responseMessage);
         } else {
-            return ResponseEntity.badRequest().body("잔여 쿠폰 없음");
+            String responseMessage = "잔여 쿠폰 없음";
+            return ResponseEntity.badRequest().body(responseMessage);
         }
     }
 
     @PostMapping
     public ResponseEntity<String> createCoupon(@RequestBody CouponCreate couponCreate) {
         couponService.create(couponCreate);
-        return ResponseEntity.ok().body("쿠폰 생성 성공");
+        String responseMessage = "쿠폰 생성 성공";
+        return ResponseEntity.ok().body(responseMessage);
     }
 }
