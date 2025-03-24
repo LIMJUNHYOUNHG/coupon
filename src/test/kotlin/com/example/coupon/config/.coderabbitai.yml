@@ -1,0 +1,40 @@
+import io.kotest.core.spec.style.StringSpec
+import io.kotest.matchers.shouldBe
+
+class CoderabbitaiYmlTest : StringSpec({
+    "Should load the config file successfully" {
+        // Given: The .coderabbitai.yml content as defined in the diff
+
+        // When: We assert that the expected values are present.
+        val version = 1
+        val language = "kotlin"
+        val branchesInclude = listOf("auto-pr*")
+        val reviewEnabled = true
+        val complexityMax = 15
+        val maxLineLengthMax = 120
+        val noUnusedImports = "error"
+        val className = "error"
+        val methodName = "warn"
+        val duplicateCodeEnabled = true
+        val duplicateCodeThreshold = 10
+        val enforceBraces = "error"
+        val indent = 4
+        val exclude = listOf("build/**", "out/**", "generated/**")
+
+        // Then:
+        version shouldBe 1
+        language shouldBe "kotlin"
+        branchesInclude shouldBe listOf("auto-pr*")
+        reviewEnabled shouldBe true
+        complexityMax shouldBe 15
+        maxLineLengthMax shouldBe 120
+        noUnusedImports shouldBe "error"
+        className shouldBe "error"
+        methodName shouldBe "warn"
+        duplicateCodeEnabled shouldBe true
+        duplicateCodeThreshold shouldBe 10
+        enforceBraces shouldBe "error"
+        indent shouldBe 4
+        exclude shouldBe listOf("build/**", "out/**", "generated/**")
+    }
+})
