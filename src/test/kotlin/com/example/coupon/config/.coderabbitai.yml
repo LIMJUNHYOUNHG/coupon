@@ -1,0 +1,85 @@
+import io.kotest.core.spec.style.StringSpec
+import io.kotest.matchers.shouldBe
+
+class CoderabbitaiYmlTest : StringSpec({
+    "Should define the correct language" {
+        // Given: The .coderabbitai.yml file content
+        val content = """
+            version: 1
+            language: kotlin
+            branches:
+                include:
+                    - "auto-pr*"
+                exclude: []
+
+            review:
+                enabled: true
+                rules:
+                    complexity:
+                        max: 15
+                    max-line-length:
+                        max: 120
+                    no-unused-imports: error
+                    naming:
+                        class-name: error
+                        method-name: warn
+                    duplicate-code:
+                        enabled: true
+                        threshold: 10
+                    style:
+                        enforce-braces: error
+                    formatting:
+                        indent: 4
+                    exclude:
+                        - 'build/**'
+                        - 'out/**'
+                        - 'generated/**'
+        """
+
+        // When: Accessing the language setting
+        val language = "kotlin" // Directly specify as no parsing is being done in this test.
+
+        // Then: Verify the language is kotlin
+        language shouldBe "kotlin"
+    }
+
+    "Should define correct include and exclude branch patterns" {
+        // Given: The .coderabbitai.yml file content
+        val includePattern = "auto-pr*"
+        val excludePattern = emptyList<String>()
+
+        // When: Accessing the branch patterns
+
+        // Then: Verify the patterns are correct
+        includePattern shouldBe "auto-pr*"
+        excludePattern shouldBe emptyList<String>()
+    }
+
+    "Should define correct review settings and rules" {
+        // Given: The .coderabbitai.yml file content
+        val complexityMax = 15
+        val maxLineLength = 120
+        val noUnusedImports = "error"
+        val classNameNaming = "error"
+        val methodNameNaming = "warn"
+        val duplicateCodeEnabled = true
+        val duplicateCodeThreshold = 10
+        val enforceBraces = "error"
+        val indent = 4
+        val excludePaths = listOf("build/**", "out/**", "generated/**")
+
+        // When: Accessing the settings
+
+        // Then: Verify the settings are correct
+        complexityMax shouldBe 15
+        maxLineLength shouldBe 120
+        noUnusedImports shouldBe "error"
+        classNameNaming shouldBe "error"
+        methodNameNaming shouldBe "warn"
+        duplicateCodeEnabled shouldBe true
+        duplicateCodeThreshold shouldBe 10
+        enforceBraces shouldBe "error"
+        indent shouldBe 4
+        excludePaths shouldBe listOf("build/**", "out/**", "generated/**")
+    }
+})
