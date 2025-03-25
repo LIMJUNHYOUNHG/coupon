@@ -1,35 +1,44 @@
-package com.example.coupon.controller;
+class CouponControllerTest : StringSpec({
 
-import com.example.coupon.service.CouponService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+    val couponService = mockk<com.example.coupon.service.CouponService>()
+    val couponController = com.example.coupon.controller.CouponController(couponService)
 
-@Slf4j
-@RestController
-@RequestMapping("/api/coupons")
-@RequiredArgsConstructor
-public class CouponController {
+    "redeemCoupon - Successful redemption" {
+        // Given: A coupon ID and the coupon service returning true for successful redemption
+        val couponId: Long = 123
+        every { couponService.redeemCoupon(couponId) } returns true
 
-    private final CouponService couponService;
+        // When: Calling the redeemCoupon method
+        val response: ResponseEntity<String> = couponController.redeemCoupon(couponId)
 
-    @PostMapping("/{couponId}/redeem")
-    public ResponseEntity<String> redeemCoupon(@PathVariable Long couponId) {
-        boolean success = couponService.redeemCoupon(couponId);
-        if (success) {
-            String responseMessage = "쿠폰 사용 성공";
-            return ResponseEntity.ok(responseMessage);
-        } else {
-            String responseMessage = "잔여 쿠폰 없음";
-            return ResponseEntity.badRequest().body(responseMessage);
-        }
+        // Then: The response should be OK with the success message
+        response.statusCode shouldBe HttpStatus.OK
+        response.body shouldBe "쿠폰 사용 성공"
     }
 
-    @PostMapping
-    public ResponseEntity<String> createCoupon(@RequestBody CouponCreate couponCreate) {
-        couponService.create(couponCreate);
-        String responseMessage = "쿠폰 생성 성공";
-        return ResponseEntity.ok().body(responseMessage);
+    "redeemCoupon - Unsuccessful redemption (no coupons left)" {
+        // Given: A coupon ID and the coupon service returning false for unsuccessful redemption
+        val couponId: Long = 456
+        every { couponService.redeemCoupon(couponId) } returns false
+
+        // When: Calling the redeemCoupon method
+        val response: ResponseEntity<String> = couponController.redeemCoupon(couponId)
+
+        // Then: The response should be a Bad Request with the 'no coupons left' message
+        response.statusCode shouldBe HttpStatus.BAD_REQUEST
+        response.body shouldBe "잔여 쿠폰 없음"
     }
-}
+
+    "createCoupon - Successful creation" {
+        // Given: A CouponCreate object
+        val couponCreate = com.example.coupon.controller.CouponCreate("Test Coupon", 100, 10L)
+        every { couponService.create(couponCreate) } returns Unit
+
+        // When: Calling the createCoupon method
+        val response: ResponseEntity<String> = couponController.createCoupon(couponCreate)
+
+        // Then: The response should be OK with the success message
+        response.statusCode shouldBe HttpStatus.OK
+        response.body shouldBe "쿠폰 생성 성공"
+    }
+})
