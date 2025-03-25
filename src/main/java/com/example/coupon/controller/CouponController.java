@@ -1,35 +1,50 @@
-package com.example.coupon.controller;
+class CouponControllerTest : BehaviorSpec({
 
-import com.example.coupon.service.CouponService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+    val couponService = mockk<com.example.coupon.service.CouponService>()
+    val couponController = com.example.coupon.controller.CouponController(couponService)
 
-@Slf4j
-@RestController
-@RequestMapping("/api/coupons")
-@RequiredArgsConstructor
-public class CouponController {
+    given("A coupon ID") {
+        val couponId: Long = 123L
 
-    private final CouponService couponService;
+        and("The coupon is available for redemption") {
+            every { couponService.redeemCoupon(couponId) } returns true
 
-    @PostMapping("/{couponId}/redeem")
-    public ResponseEntity<String> redeemCoupon(@PathVariable Long couponId) {
-        boolean success = couponService.redeemCoupon(couponId);
-        if (success) {
-            String responseMessage = "쿠폰 사용 성공";
-            return ResponseEntity.ok(responseMessage);
-        } else {
-            String responseMessage = "잔여 쿠폰 없음";
-            return ResponseEntity.badRequest().body(responseMessage);
+            `when`("redeemCoupon is called") {
+                val response: ResponseEntity<String> = couponController.redeemCoupon(couponId)
+
+                then("The response should be OK with a success message") {
+                    response.statusCode shouldBe HttpStatus.OK
+                    response.body shouldBe "쿠폰 사용 성공"
+                }
+            }
+        }
+
+        and("The coupon is not available for redemption") {
+            every { couponService.redeemCoupon(couponId) } returns false
+
+            `when`("redeemCoupon is called") {
+                val response: ResponseEntity<String> = couponController.redeemCoupon(couponId)
+
+                then("The response should be BAD REQUEST with an error message") {
+                    response.statusCode shouldBe HttpStatus.BAD_REQUEST
+                    response.body shouldBe "잔여 쿠폰 없음"
+                }
+            }
         }
     }
 
-    @PostMapping
-    public ResponseEntity<String> createCoupon(@RequestBody CouponCreate couponCreate) {
-        couponService.create(couponCreate);
-        String responseMessage = "쿠폰 생성 성공";
-        return ResponseEntity.ok().body(responseMessage);
+    given("Valid coupon creation details") {
+        val couponCreate = com.example.coupon.controller.CouponCreate("Test Coupon", 100, 1000L)
+
+        every { couponService.create(couponCreate) } returns Unit
+
+        `when`("createCoupon is called") {
+            val response: ResponseEntity<String> = couponController.createCoupon(couponCreate)
+
+            then("The response should be OK with a success message") {
+                response.statusCode shouldBe HttpStatus.OK
+                response.body shouldBe "쿠폰 생성 성공"
+            }
+        }
     }
-}
+})
