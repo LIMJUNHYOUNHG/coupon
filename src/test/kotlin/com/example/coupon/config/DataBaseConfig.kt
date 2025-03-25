@@ -1,0 +1,1 @@
+// No test needed as the whole class was removed.
