@@ -1,0 +1,26 @@
+name: PR 테스트 자동 실행
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  run-tests:
+    if: >
+      startsWith(github.event.pull_request.title, 'Auto')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 코드 체크아웃 (PR 헤드 브랜치 사용)
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: JDK 21 설치
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Gradle 테스트 실행
+        run: ./gradlew test
