@@ -39,8 +39,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
     implementation "io.mockk:mockk:1.13.5"
-    implementation 'io.kotest:kotest-runner-junit5:5.5.5'
-    implementation 'io.kotest:kotest-assertions-core:5.5.5'
+    implementation 'io.kotest:kotest-runner-junit5:5.6.2'         // Kotest runner (Junit5)
+    implementation 'io.kotest:kotest-assertions-core:5.6.2'           // Kotest assertions
 }
 
 tasks.named('test') {
