@@ -2,7 +2,7 @@ name: PR 테스트 자동 실행
 
 on:
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, synchronize, reopened]
 
 jobs:
   run-tests:
@@ -15,6 +15,9 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: gradlew 실행 권한 부여
+        run: chmod +x gradlew
 
       - name: JDK 21 설치
         uses: actions/setup-java@v2
