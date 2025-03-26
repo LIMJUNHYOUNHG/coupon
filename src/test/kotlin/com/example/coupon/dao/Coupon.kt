@@ -1,0 +1,1 @@
+// No changes detected that necessitate tests.  The existing tests for CouponService adequately cover the data access.
