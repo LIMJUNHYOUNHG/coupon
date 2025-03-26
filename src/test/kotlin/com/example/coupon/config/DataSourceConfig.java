@@ -1,0 +1,1 @@
+// No Kotlin code found, skipping test creation.
