@@ -30,4 +30,5 @@ public class CouponService {
 
         couponRepository.save(coupon);
     }
+
 }
