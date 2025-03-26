@@ -1,0 +1,1 @@
+// (Entity class, no logic to test)
