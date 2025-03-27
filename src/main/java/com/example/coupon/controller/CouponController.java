@@ -1,5 +1,6 @@
 package com.example.coupon.controller;
 
+import com.example.coupon.service.BuyService;
 import com.example.coupon.service.CouponService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class CouponController {
 
     private final CouponService couponService;
+    private final BuyService buyService;
 
     @PostMapping("/{couponId}/redeem")
     public ResponseEntity<String> redeemCoupon(final @PathVariable Long couponId) {
@@ -32,4 +34,11 @@ public class CouponController {
         String responseMessage = "쿠폰 생성 성공";
         return ResponseEntity.ok().body(responseMessage);
     }
+
+    @PostMapping("buy")
+    public ResponseEntity<String> buyCoupon(final @RequestBody Long productId) {
+        buyService.buy(productId);
+        return ResponseEntity.ok("ok");
+    }
+
 }
