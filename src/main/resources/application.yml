@@ -23,9 +23,10 @@ spring:
         cacheServerConfiguration: true
         elideSetAutoCommits: true
         maintainTimeStats: false
-      jdbc-url: jdbc:mysql://localhost:3306/coupon?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+#      jdbc-url: jdbc:mysql://localhost:3306/coupon?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTCjdbc:h2:mem:coupon;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
       username: sa
       password: ""
+      jdbc-url: jdbc:h2:mem:coupon;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
   jpa:
     hibernate:
       ddl-auto: update
