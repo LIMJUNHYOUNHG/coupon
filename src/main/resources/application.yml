@@ -4,28 +4,28 @@ spring:
       enabled: always
   datasource:
     hikari:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-#      maximum-pool-size: 10
-#      connection-timeout: 1100
-#      keepalive-time: 30000
-#      validation-timeout: 1000
-#      max-lifetime: 600000
-#      pool-name: core-db-pool
-#      data-source-properties:
-#        socketTimeout: 30000
-#        cachePrepStmts: true
-#        prepStmtCacheSize: 250
-#        prepStmtCacheSqlLimit: 2048
-#        useServerPrepStmts: true
-#        useLocalSessionState: true
-#        rewriteBatchedStatements: true
-#        cacheResultSetMetadata: true
-#        cacheServerConfiguration: true
-#        elideSetAutoCommits: true
-#        maintainTimeStats: false
+      driver-class-name: org.h2.Driver
+      maximum-pool-size: 10
+      connection-timeout: 1100
+      keepalive-time: 30000
+      validation-timeout: 1000
+      max-lifetime: 600000
+      pool-name: core-db-pool
+      data-source-properties:
+        socketTimeout: 30000
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+        useLocalSessionState: true
+        rewriteBatchedStatements: true
+        cacheResultSetMetadata: true
+        cacheServerConfiguration: true
+        elideSetAutoCommits: true
+        maintainTimeStats: false
       jdbc-url: jdbc:mysql://localhost:3306/coupon?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-      username: root
-      password: my-secret-pw
+      username: sa
+      password: ""
   jpa:
     hibernate:
       ddl-auto: update
