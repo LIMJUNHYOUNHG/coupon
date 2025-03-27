@@ -1,0 +1,1 @@
+// No test file needed because the change is just adding `@Getter`.
