@@ -15,7 +15,7 @@ public class CouponController {
     private final CouponService couponService;
 
     @PostMapping("/{couponId}/redeem")
-    public ResponseEntity<String> redeemCoupon(final @PathVariable Long couponId) {
+    public ResponseEntity<String> redeemCoupon(@PathVariable Long couponId) {
         boolean success = couponService.redeemCoupon(couponId);
         if (success) {
             String responseMessage = "쿠폰 사용 성공";
@@ -27,7 +27,7 @@ public class CouponController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createCoupon(final @RequestBody CouponCreate couponCreate) {
+    public ResponseEntity<String> createCoupon(@RequestBody CouponCreate couponCreate) {
         couponService.create(couponCreate);
         String responseMessage = "쿠폰 생성 성공";
         return ResponseEntity.ok().body(responseMessage);

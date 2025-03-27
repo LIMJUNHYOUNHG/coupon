@@ -16,13 +16,13 @@ public class CouponService {
     private final CouponRepository couponRepository;
 
     @Transactional
-    public boolean redeemCoupon(final Long couponId) {
+    public boolean redeemCoupon(Long couponId) {
         int updatedCount = couponRepository.decrementCouponCount(couponId);
         return updatedCount > 0;
     }
 
     @Transactional
-    public void create(final CouponCreate couponCreate) {
+    public void create(CouponCreate couponCreate) {
         Coupon coupon = Coupon.builder()
                 .count(couponCreate.count())
                 .name(couponCreate.name())

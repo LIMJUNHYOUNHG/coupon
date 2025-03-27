@@ -22,7 +22,7 @@ public class Coupon {
     private Long count;
 
     @Builder
-    private Coupon(final String name, final Long count) {
+    private Coupon(String name, Long count) {
         this.name = name;
         this.count = count;
     }
