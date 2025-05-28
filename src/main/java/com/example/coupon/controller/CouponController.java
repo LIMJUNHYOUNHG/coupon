@@ -5,16 +5,22 @@ import com.example.coupon.service.CouponService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
-@RestController
+@ResponseBody
+@Controller
 @RequestMapping("/api/coupons")
-@RequiredArgsConstructor
 public class CouponController {
 
     private final CouponService couponService;
     private final BuyService buyService;
+
+    public CouponController(CouponService couponService, BuyService buyService) {
+        this.couponService = couponService;
+        this.buyService = buyService;
+    }
 
     @PostMapping("/{couponId}/redeem")
     public ResponseEntity<String> redeemCoupon(final @PathVariable Long couponId) {

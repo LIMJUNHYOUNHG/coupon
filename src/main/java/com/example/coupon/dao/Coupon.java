@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Coupon {
 
     @Id
@@ -25,5 +24,8 @@ public class Coupon {
     private Coupon(String name, Long count) {
         this.name = name;
         this.count = count;
+    }
+
+    protected Coupon() {
     }
 }

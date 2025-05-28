@@ -10,10 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class CouponService {
 
     private final CouponRepository couponRepository;
+
+    public CouponService(CouponRepository couponRepository) {
+        this.couponRepository = couponRepository;
+    }
 
     @Transactional
     public boolean redeemCoupon(final Long couponId) {
